@@ -1,0 +1,29 @@
+.main {
+  height: 693px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  width: 377px;
+  margin-bottom: calc(60 * var(--offset-base-size));
+}
+
+.container {
+  width: 944px;
+  display: flex;
+  justify-content: center;
+  column-gap: calc(8 * var(--offset-base-size));
+  row-gap: calc(16 * var(--offset-base-size));
+  flex-wrap: wrap;
+}
+
+.tenPlus {
+  justify-content: start;
+}
