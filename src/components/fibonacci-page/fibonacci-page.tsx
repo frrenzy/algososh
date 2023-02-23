@@ -24,7 +24,6 @@ const iteration = (
   cache: MutableRefObject<number[]>,
   setter: Dispatch<SetStateAction<number[]>>,
 ) => {
-  console.log(index)
   if (index >= cache.current.length) {
     cache.current.push(cache.current[index - 1] + cache.current[index - 2])
   }
