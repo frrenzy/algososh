@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useInput } from 'hooks'
 import { v4 as uuid } from 'uuid'
-import { fibonacciIteration as iteration } from 'helpers'
+import { fibonacciIteration as iteration } from 'helpers/fibonacci'
 
 import { SolutionLayout } from '../ui/solution-layout/solution-layout'
 import { Circle } from '../ui/circle/circle'

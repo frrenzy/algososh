@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
-import algos, { randomArr } from 'helpers'
+import algos, { randomArr } from 'helpers/sorting'
 
 import { Bar } from 'components/ui/bar/bar'
 import { Button } from 'components/ui/button/button'

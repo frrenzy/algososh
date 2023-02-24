@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useInput } from 'hooks'
 import { v4 as uuid } from 'uuid'
-import { stringIteration as iteration } from 'helpers'
+import { stringIteration as iteration } from 'helpers/string'
 
 import { Button } from '../ui/button/button'
 import { Circle } from '../ui/circle/circle'
