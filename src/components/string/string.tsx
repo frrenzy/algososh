@@ -98,11 +98,11 @@ export const StringComponent: FC<{}> = () => {
       </form>
       <div className={styles.container}>
         {state &&
-          state.map(char => (
+          state.map(({ value, state }) => (
             <Circle
               key={uuid()}
-              letter={char.value}
-              state={char.state}
+              letter={value}
+              state={state}
             />
           ))}
       </div>

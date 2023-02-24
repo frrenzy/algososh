@@ -1,0 +1,19 @@
+.main {
+  height: 693px;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  width: 377px;
+  margin-bottom: calc(60 * var(--offset-base-size));
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: calc(8 * var(--offset-base-size));
+}

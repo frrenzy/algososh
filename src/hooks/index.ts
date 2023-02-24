@@ -1,8 +1,14 @@
-import { ChangeEventHandler, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
+
+import type { Dispatch, SetStateAction, ChangeEventHandler } from 'react'
 
 export const useInput = (
   initialValue?: string,
-): { value: string; handleChange: ChangeEventHandler<HTMLInputElement> } => {
+): {
+  value: string
+  handleChange: ChangeEventHandler<HTMLInputElement>
+  setValue: Dispatch<SetStateAction<string>>
+} => {
   const [value, setValue] = useState(initialValue ?? '')
 
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
@@ -13,5 +19,5 @@ export const useInput = (
     [setValue],
   )
 
-  return { value, handleChange }
+  return { value, handleChange, setValue }
 }
