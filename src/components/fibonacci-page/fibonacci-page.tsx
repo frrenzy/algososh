@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useInput } from 'hooks'
 import { v4 as uuid } from 'uuid'
+import { fibonacciIteration as iteration } from 'helpers'
 
 import { SolutionLayout } from '../ui/solution-layout/solution-layout'
 import { Circle } from '../ui/circle/circle'
@@ -9,26 +10,9 @@ import { Input } from 'components/ui/input/input'
 
 import { SHORT_DELAY_IN_MS } from 'constants/delays'
 
-import type {
-  FC,
-  FormEventHandler,
-  MutableRefObject,
-  SetStateAction,
-  Dispatch,
-} from 'react'
+import type { FC, FormEventHandler } from 'react'
 
 import styles from './fibonacci.module.css'
-
-const iteration = (
-  index: number,
-  cache: MutableRefObject<number[]>,
-  setter: Dispatch<SetStateAction<number[]>>,
-) => {
-  if (index >= cache.current.length) {
-    cache.current.push(cache.current[index - 1] + cache.current[index - 2])
-  }
-  setter(state => [...state, cache.current[index]])
-}
 
 export const FibonacciPage: FC = () => {
   const { value, handleChange } = useInput('')
@@ -40,7 +24,7 @@ export const FibonacciPage: FC = () => {
   const numbersRef = useRef<number[]>([])
   const counterRef = useRef<number>(0)
   const timerRef = useRef<unknown>()
-  const memoRef = useRef<number[]>([1, 1])
+  const memoRef = useRef<number[]>([0, 1, 1])
 
   useEffect(() => {
     if (counterRef.current === 0) {
