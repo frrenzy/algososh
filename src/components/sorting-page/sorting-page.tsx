@@ -92,36 +92,40 @@ export const SortingPage: FC<{}> = () => {
         onSubmit={submitHandler}
       >
         <RadioInput
-          label='Vibor'
+          label='Выбор'
           name='sort'
           onChange={onRadio}
           disabled={inProgress}
           value={SortingTypes.Selection}
+          extraClass='mr-15'
         />
         <RadioInput
-          label='Puzirek'
+          label='Пузырёк'
           name='sort'
           onChange={onRadio}
           value={SortingTypes.Bubble}
           disabled={inProgress}
+          extraClass='mr-15'
         />
         <Button
           type='submit'
-          text='Acs'
+          text='По возрастанию'
           sorting={Direction.Ascending}
           disabled={inProgress && sortingDirection !== Direction.Ascending}
           isLoader={inProgress && sortingDirection === Direction.Ascending}
           onClick={onClick}
           value={Direction.Ascending}
+          extraClass='mr-8'
         />
         <Button
           type='submit'
-          text='Decs'
+          text='По убыванию'
           sorting={Direction.Descending}
           disabled={inProgress && sortingDirection !== Direction.Descending}
           isLoader={inProgress && sortingDirection === Direction.Descending}
           onClick={onClick}
           value={Direction.Descending}
+          extraClass='mr-30'
         />
         <Button
           type='button'
