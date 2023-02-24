@@ -8,12 +8,13 @@ import { Circle } from 'components/ui/circle/circle'
 import { SolutionLayout } from '../ui/solution-layout/solution-layout'
 import { Button } from 'components/ui/button/button'
 
+import { SHORT_DELAY_IN_MS } from 'constants/delays'
+
 import { ElementStates } from 'types/element-states'
 import { Action } from 'types/action'
+import type { FC, FormEventHandler } from 'react'
 
 import styles from './stack.module.css'
-import type { FC, FormEventHandler } from 'react'
-import { SHORT_DELAY_IN_MS } from 'constants/delays'
 
 interface Item {
   value: string
@@ -32,6 +33,7 @@ export const StackPage: FC<{}> = () => {
   const submitHandler = useCallback<FormEventHandler>(
     e => {
       e.preventDefault()
+      setAction(Action.Add)
       if (value.length === 0) return
       stack.current.push(value)
       setValue('')
@@ -41,13 +43,12 @@ export const StackPage: FC<{}> = () => {
           state: idx === len ? ElementStates.Changing : ElementStates.Default,
         })),
       )
-      setTimeout(
-        () =>
-          setState(state =>
-            state.map(e => ({ ...e, state: ElementStates.Default })),
-          ),
-        SHORT_DELAY_IN_MS,
-      )
+      setTimeout(() => {
+        setState(state =>
+          state.map(e => ({ ...e, state: ElementStates.Default })),
+        )
+        setAction(undefined)
+      }, SHORT_DELAY_IN_MS)
     },
     [setValue, stack, value, len],
   )
@@ -57,7 +58,7 @@ export const StackPage: FC<{}> = () => {
       e.preventDefault()
       stack.current.clear()
       setState(
-        stack.current.container.map((e, idx) => ({
+        stack.current.container.map(e => ({
           value: e,
           state: ElementStates.Default,
         })),
@@ -69,6 +70,7 @@ export const StackPage: FC<{}> = () => {
   const deleteHandler = useCallback<
     MouseEventHandler<HTMLButtonElement>
   >(() => {
+    setAction(Action.Remove)
     setState(state =>
       state.map((e, idx) => ({
         ...e,
@@ -76,16 +78,15 @@ export const StackPage: FC<{}> = () => {
       })),
     )
     stack.current.pop()
-    setTimeout(
-      () =>
-        setState(
-          stack.current.container.map(e => ({
-            value: e,
-            state: ElementStates.Default,
-          })),
-        ),
-      SHORT_DELAY_IN_MS,
-    )
+    setTimeout(() => {
+      setState(
+        stack.current.container.map(e => ({
+          value: e,
+          state: ElementStates.Default,
+        })),
+      )
+      setAction(undefined)
+    }, SHORT_DELAY_IN_MS)
   }, [len])
 
   return (
@@ -103,24 +104,28 @@ export const StackPage: FC<{}> = () => {
           maxLength={4}
           value={value}
           onChange={handleChange}
-          extraClass={styles.input}
+          extraClass={`mr-10 ${styles.input}`}
           isLimitText={true}
         />
         <Button
           type='submit'
           text='Добавить'
           isLoader={action === Action.Add}
+          disabled={action === Action.Remove}
+          extraClass='mr-10'
         />
         <Button
           type='button'
           text='Удалить'
-          isLoader={action === Action.Clear}
+          isLoader={action === Action.Remove}
+          disabled={action === Action.Add}
           onClick={deleteHandler}
+          extraClass='mr-30'
         />
         <Button
           type='reset'
           text='Очистить'
-          isLoader={action === Action.Remove}
+          disabled={!!action}
         />
       </form>
       <div className={styles.container}>
