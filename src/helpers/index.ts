@@ -11,8 +11,11 @@ export const swap = <T extends { value: number | string }>(
 export class Node<T> {
   value: T
   next: Node<T> | null
-  constructor(value: T, next?: Node<T> | null) {
+  prev: Node<T> | null
+
+  constructor(value: T, next?: Node<T> | null, prev?: Node<T> | null) {
     this.value = value
     this.next = next === undefined ? null : next
+    this.prev = prev === undefined ? null : prev
   }
 }

@@ -1,0 +1,25 @@
+.main {
+  height: 693px;
+}
+
+.fieldset {
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+
+.input {
+  width: 204px;
+}
+
+.inputBottom {
+  width: 204px;
+  margin-bottom: calc(50 * var(--offset-base-size));
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: calc(8 * var(--offset-base-size));
+}

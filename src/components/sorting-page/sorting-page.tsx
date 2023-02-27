@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import algos, { randomArr } from 'helpers/sorting'
 
-import { Bar } from 'components/ui/bar/bar'
+import { Column } from 'components/ui/column/column'
 import { Button } from 'components/ui/button/button'
 import { RadioInput } from 'components/ui/radio-input/radio-input'
 import { SolutionLayout } from '../ui/solution-layout/solution-layout'
@@ -13,20 +13,23 @@ import { Direction } from 'types/direction'
 import { ElementStates } from 'types/element-states'
 import { SortingTypes } from 'types/sorting-types'
 import type { FC, MouseEventHandler, FormEventHandler } from 'react'
-import type { IBarProps } from 'components/ui/bar/bar'
 
 import styles from './sorting.module.css'
 
+interface ColumnProps {
+  value: number
+  state: ElementStates
+}
+
 export const SortingPage: FC<{}> = () => {
-  const [state, setState] = useState<IBarProps[]>([])
+  const [state, setState] = useState<ColumnProps[]>([])
   const [step, setStep] = useState<number>(0)
   const [inProgress, setProgress] = useState<boolean>(false)
   const [sortingAlgo, setAlgo] = useState<SortingTypes>()
   const [sortingDirection, setDirection] = useState<Direction>()
 
-  const numbersRef = useRef<IBarProps[]>([])
+  const numbersRef = useRef<ColumnProps[]>([])
   const timerRef = useRef<unknown>()
-  const counterRef = useRef<number>(0)
   const generatorRef = useRef<Generator>()
 
   const newArray = useCallback<() => void>(() => {
@@ -43,12 +46,11 @@ export const SortingPage: FC<{}> = () => {
       if (!sortingAlgo) return
       if (!sortingDirection) return
       setProgress(true)
-      generatorRef.current = algos[sortingAlgo]<IBarProps>(
+      generatorRef.current = algos[sortingAlgo]<ColumnProps>(
         numbersRef,
         sortingDirection,
       )
       timerRef.current = setInterval(() => {
-        counterRef.current -= 1
         setStep(step => step + 1)
       }, DELAY_IN_MS)
     },
@@ -68,7 +70,7 @@ export const SortingPage: FC<{}> = () => {
       setProgress(false)
       setDirection(undefined)
     } else {
-      setState(yilded?.value as IBarProps[])
+      setState(yilded?.value as ColumnProps[])
     }
   }, [step])
 
@@ -136,9 +138,9 @@ export const SortingPage: FC<{}> = () => {
       </form>
       <div className={styles.container}>
         {state.map(({ value, state }) => (
-          <Bar
+          <Column
             key={uuid()}
-            value={value}
+            index={value}
             state={state}
           />
         ))}
