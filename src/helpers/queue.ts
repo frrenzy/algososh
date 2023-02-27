@@ -1,9 +1,9 @@
 export class Queue<T> {
   container: (T | null)[] = []
-  head = 0
-  tail = -1
-  size = 0
-  length = 0
+  head: number = 0
+  tail: number = -1
+  size: number = 0
+  length: number = 0
 
   constructor(size: number) {
     this.size = size

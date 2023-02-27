@@ -1,8 +1,9 @@
-import { ElementStates } from 'types/element-states'
 import { Node } from 'helpers'
-import { MutableRefObject } from 'react'
+
+import { ElementStates } from 'types/element-states'
 import { Action } from 'types/action'
 import { PointerType } from 'types/pointer-types'
+import type { MutableRefObject } from 'react'
 
 interface CircleItem {
   letter: string
@@ -69,7 +70,7 @@ export class LinkedList<T> {
 
       const newNode = new Node(value, curr!.next, curr)
       curr!.next = newNode
-      newNode.next!.prev = newNode
+      if (newNode.next) newNode.next!.prev = newNode
     }
 
     this.length++

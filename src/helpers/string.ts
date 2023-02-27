@@ -11,7 +11,7 @@ export const stringIteration = <
   rightRef: MutableRefObject<number>,
   setter: Dispatch<SetStateAction<T[] | undefined>>,
 ) => {
-  swap<T>(charsRef.current, leftRef.current, rightRef.current)
+  swap(charsRef.current, leftRef.current, rightRef.current)
   charsRef.current[leftRef.current].state = ElementStates.Modified
   charsRef.current[rightRef.current].state = ElementStates.Modified
   leftRef.current += 1

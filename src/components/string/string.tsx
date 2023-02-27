@@ -94,6 +94,7 @@ export const StringComponent: FC<{}> = () => {
           text='Развернуть'
           type='submit'
           isLoader={inProgress}
+          disabled={value.length === 0}
         />
       </form>
       <div className={styles.container}>

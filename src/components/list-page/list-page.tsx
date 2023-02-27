@@ -1,22 +1,22 @@
 import { useCallback, useState, useRef, Fragment, useEffect } from 'react'
+import { useInput } from 'hooks'
+import { v4 as uuid } from 'uuid'
+import { LinkedList, algos, initialState, isCircle } from 'helpers/list'
+
 import { Button } from 'components/ui/button/button'
 import { Circle } from 'components/ui/circle/circle'
 import { Input } from 'components/ui/input/input'
-import { useInput } from 'hooks'
-import { ElementStates } from 'types/element-states'
 import { SolutionLayout } from '../ui/solution-layout/solution-layout'
-import { Action } from 'types/action'
-import { v4 as uuid } from 'uuid'
-import { LinkedList } from 'helpers/list'
 
+import { DELAY_IN_MS } from 'constants/delays'
+import { HEAD, TAIL } from 'constants/element-captions'
+
+import { PointerType } from 'types/pointer-types'
+import { Action } from 'types/action'
 import type { FormEventHandler, MouseEventHandler } from 'react'
 import type { Item, Algo } from 'helpers/list'
 
 import styles from './list.module.css'
-import { PointerType } from 'types/pointer-types'
-import { algos, initialState, isCircle } from 'helpers/list'
-import { DELAY_IN_MS } from 'constants/delays'
-import { HEAD, TAIL } from 'constants/element-captions'
 
 export const ListPage: React.FC = () => {
   const { value, handleChange: handleValueChange, setValue } = useInput('')

@@ -2,16 +2,19 @@ import { swap } from 'helpers'
 
 import { ElementStates } from 'types/element-states'
 import { Direction } from 'types/direction'
+import type { ColumnProps } from 'components/sorting-page/sorting-page'
 import type { MutableRefObject } from 'react'
 
 const sortingPredicate = (direction: Direction) => (a: number, b: number) => {
   return direction === Direction.Ascending ? a >= b : b >= a
 }
 
-function* bubbleSort<T extends { state: ElementStates; value: number }>(
-  array: MutableRefObject<T[]>,
+export type SortingAlgo = (
+  array: MutableRefObject<ColumnProps[]>,
   direction: Direction,
-) {
+) => Generator<ColumnProps[], void, unknown>
+
+const bubbleSort: SortingAlgo = function* (array, direction) {
   const len = array.current.length
   const predicate = sortingPredicate(direction)
   array.current = array.current.map(e => ({
@@ -23,7 +26,7 @@ function* bubbleSort<T extends { state: ElementStates; value: number }>(
       array.current[j].state = ElementStates.Changing
       array.current[j + 1].state = ElementStates.Changing
       if (predicate(array.current[j].value, array.current[j + 1].value)) {
-        swap<T>(array.current, j, j + 1)
+        swap(array.current, j, j + 1)
       }
       yield array.current
       array.current[j].state = ElementStates.Default
@@ -32,10 +35,7 @@ function* bubbleSort<T extends { state: ElementStates; value: number }>(
   }
 }
 
-function* selectionSort<T extends { value: number; state: ElementStates }>(
-  array: MutableRefObject<T[]>,
-  direction: Direction,
-) {
+const selectionSort: SortingAlgo = function* (array, direction) {
   const predicate = sortingPredicate(direction)
   const len = array.current.length
   array.current = array.current.map(e => ({
@@ -69,9 +69,7 @@ export const randomArr = () => {
   return array
 }
 
-const algos = {
+export const algos: Record<'bubbleSort' | 'selectionSort', SortingAlgo> = {
   bubbleSort,
   selectionSort,
 }
-
-export default algos

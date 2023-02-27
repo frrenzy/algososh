@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
-import algos, { randomArr } from 'helpers/sorting'
+import { algos, randomArr } from 'helpers/sorting'
 
 import { Column } from 'components/ui/column/column'
 import { Button } from 'components/ui/button/button'
@@ -13,10 +13,11 @@ import { Direction } from 'types/direction'
 import { ElementStates } from 'types/element-states'
 import { SortingTypes } from 'types/sorting-types'
 import type { FC, MouseEventHandler, FormEventHandler } from 'react'
+import type { SortingAlgo } from 'helpers/sorting'
 
 import styles from './sorting.module.css'
 
-interface ColumnProps {
+export interface ColumnProps {
   value: number
   state: ElementStates
 }
@@ -30,7 +31,7 @@ export const SortingPage: FC<{}> = () => {
 
   const numbersRef = useRef<ColumnProps[]>([])
   const timerRef = useRef<unknown>()
-  const generatorRef = useRef<Generator>()
+  const generatorRef = useRef<ReturnType<SortingAlgo>>()
 
   const newArray = useCallback<() => void>(() => {
     numbersRef.current = randomArr().map(e => ({
@@ -46,10 +47,7 @@ export const SortingPage: FC<{}> = () => {
       if (!sortingAlgo) return
       if (!sortingDirection) return
       setProgress(true)
-      generatorRef.current = algos[sortingAlgo]<ColumnProps>(
-        numbersRef,
-        sortingDirection,
-      )
+      generatorRef.current = algos[sortingAlgo](numbersRef, sortingDirection)
       timerRef.current = setInterval(() => {
         setStep(step => step + 1)
       }, DELAY_IN_MS)
