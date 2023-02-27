@@ -111,7 +111,10 @@ export const SortingPage: FC<{}> = () => {
           type='submit'
           text='По возрастанию'
           sorting={Direction.Ascending}
-          disabled={inProgress && sortingDirection !== Direction.Ascending}
+          disabled={
+            (inProgress && sortingDirection !== Direction.Ascending) ||
+            !sortingAlgo
+          }
           isLoader={inProgress && sortingDirection === Direction.Ascending}
           onClick={onClick}
           value={Direction.Ascending}
@@ -121,7 +124,10 @@ export const SortingPage: FC<{}> = () => {
           type='submit'
           text='По убыванию'
           sorting={Direction.Descending}
-          disabled={inProgress && sortingDirection !== Direction.Descending}
+          disabled={
+            (inProgress && sortingDirection !== Direction.Descending) ||
+            !sortingAlgo
+          }
           isLoader={inProgress && sortingDirection === Direction.Descending}
           onClick={onClick}
           value={Direction.Descending}

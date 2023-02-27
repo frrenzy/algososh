@@ -119,21 +119,23 @@ export const QueuePage: FC<{}> = () => {
           type='submit'
           text='Добавить'
           isLoader={action === Action.Add}
-          disabled={action === Action.Remove || length === 6}
+          disabled={
+            action === Action.Remove || length === 6 || value.length === 0
+          }
           extraClass='mr-10'
         />
         <Button
           type='button'
           text='Удалить'
           isLoader={action === Action.Remove}
-          disabled={action === Action.Add}
+          disabled={action === Action.Add || length === 0}
           onClick={deleteHandler}
           extraClass='mr-30'
         />
         <Button
           type='reset'
           text='Очистить'
-          disabled={!!action}
+          disabled={!!action || length === 0}
         />
       </form>
       <div className={styles.container}>

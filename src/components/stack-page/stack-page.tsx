@@ -111,21 +111,21 @@ export const StackPage: FC<{}> = () => {
           type='submit'
           text='Добавить'
           isLoader={action === Action.Add}
-          disabled={action === Action.Remove}
+          disabled={action === Action.Remove || value.length === 0}
           extraClass='mr-10'
         />
         <Button
           type='button'
           text='Удалить'
           isLoader={action === Action.Remove}
-          disabled={action === Action.Add}
+          disabled={action === Action.Add || len === 0}
           onClick={deleteHandler}
           extraClass='mr-30'
         />
         <Button
           type='reset'
           text='Очистить'
-          disabled={!!action}
+          disabled={!!action || len === 0}
         />
       </form>
       <div className={styles.container}>

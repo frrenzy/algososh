@@ -69,7 +69,9 @@ export const FibonacciPage: FC = () => {
           text='Рассчитать'
           type='submit'
           isLoader={inProgress}
-          disabled={parseInt(value) < 0 || parseInt(value) > 19}
+          disabled={
+            parseInt(value) < 0 || parseInt(value) > 19 || value.length === 0
+          }
         />
       </form>
       <div

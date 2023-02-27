@@ -47,8 +47,9 @@ export const ListPage: React.FC = () => {
 
   const isDisabled = useCallback(
     (action: Action, pointer: PointerType) =>
-      !!currentAction && !isLoader(action, pointer),
-    [currentAction, isLoader],
+      (!!currentAction && !isLoader(action, pointer)) ||
+      (value.length === 0 && action === Action.Add),
+    [currentAction, isLoader, value.length],
   )
 
   const clickHandler = useCallback(
@@ -161,7 +162,8 @@ export const ListPage: React.FC = () => {
             disabled={
               isDisabled(Action.Add, PointerType.Index) ||
               parseInt(index) > len ||
-              parseInt(index) < 0
+              parseInt(index) < 0 ||
+              index.length === 0
             }
             isLoader={isLoader(Action.Add, PointerType.Index)}
             onClick={clickHandler(Action.Add, PointerType.Index)}
@@ -174,7 +176,8 @@ export const ListPage: React.FC = () => {
               isDisabled(Action.Remove, PointerType.Index) ||
               len === 0 ||
               parseInt(index) < 0 ||
-              parseInt(index) >= len
+              parseInt(index) >= len ||
+              index.length === 0
             }
             isLoader={isLoader(Action.Remove, PointerType.Index)}
             onClick={clickHandler(Action.Remove, PointerType.Index)}
