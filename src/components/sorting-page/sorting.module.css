@@ -1,0 +1,17 @@
+.main {
+  height: 793px;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  gap: calc(8 * var(--offset-base-size));
+}
